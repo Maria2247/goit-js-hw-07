@@ -11,8 +11,9 @@ const createBtn = document.querySelector('[data-create]');
 const destroyBtn = document.querySelector('[data-destroy]');
 
 const createBoxes = event => {
-  let userInput = Number(inputEl.value);
+  const userInput = Number(inputEl.value);
   if (userInput >= minNum && userInput <= maxNum) {
+    let boxesArray = [];
     boxesEl.innerHTML = ' ';
     let size = 30;
     for (let i = minNum; i <= userInput; i++) {
@@ -20,9 +21,11 @@ const createBoxes = event => {
       addedBox.style.width = `${size}px`;
       addedBox.style.height = `${size}px`;
       addedBox.style.backgroundColor = getRandomHexColor();
-      boxesEl.appendChild(addedBox);
+      boxesArray.push(addedBox);
       size += 10;
     }
+    const boxesMarkup = boxesArray.map(box => box.outerHTML).join('');
+    boxesEl.insertAdjacentHTML('beforeend', boxesMarkup);
   }
   inputEl.value = '';
 };
